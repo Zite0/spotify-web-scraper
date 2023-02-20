@@ -82,4 +82,12 @@ def songs(url):
         song_dict[album_dict[album_id]] = songlist
 
     return song_dict
+
+def to_csv(url):
+    """
+    Returns a CSV file with an artist's songs and albums, given the artist's URL.
+    Parameter url: URL of artist, given as a string
+    Preconditions: must be a valid URL, must be a string
+    """
+    pass
     
