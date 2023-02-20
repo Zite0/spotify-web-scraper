@@ -101,5 +101,25 @@ def to_csv(url):
     Parameter url: URL of artist, given as a string
     Preconditions: must be a valid URL, must be a string
     """
-    fields = ['Album','Song']
+
+    data = songs(url)
+
+    albumlist = []
+    songlist = []
+    for album in data:
+        albumlist.append(album)
+        songlist.append(data[album])
+        
+
+    # get artist name
+    uri = uri_to_url(url)
+    artist_data = spotify.artist(uri)
+    artist = artist_data['name']
+    csvName = str(artist) + '.csv'
+
+    with open(csvName,'w') as csvfile:
+        writer = csv.writer(csvfile, delimiter=' ')
+        writer.writerows(songlist)
+        
+    return csvfile
     
