@@ -3,9 +3,13 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='936004f3ef804d04b78af09dbbcd8357',client_secret='56f682b2a40b4bb1b645cd2030271a49'))
 
+album_dict = {}
+
 def albums(url):
     """
-    Returns the album names of a certain artist, given the artist's URL
+    Returns the album names of a certain artist as a list, given the artist's URL.
+    Album names are stored in the dictionary `album_dict` based on IDs.
+
     Parameter url: URL of artist, given as a string
     Preconditions: must be a valid URL, must be a string
     """
@@ -24,10 +28,33 @@ def albums(url):
         results = spotify.next(results)
         albums.extend(results['items'])
 
+    # add album names to dictionary with IDs
     for album in albums:
-        albumlist = album['name']
+        album_dict[album['id']] = album['name']
 
-    return remove_dups(albumlist)
+    remove_dict_dups(album_dict)    
+    
+    return list(album_dict.values())
+
+def remove_dict_dups(d):
+    """
+    Modifies the dictionary to remove all occurrences of duplicate 
+    (except for first instance)
+    Parameter d: must be a dictionary
+    """
+    assert isinstance(d, dict)
+
+    new_dict = {}
+    values = []
+    for item in d:
+        if d[item] not in values:
+            values.append(d[item])
+            new_dict[item] = d[item]
+
+    # modify dictionary
+    d.clear()
+    for val in new_dict:
+        d[val] = new_dict[val]
 
 def remove_dups(lst):
     """
