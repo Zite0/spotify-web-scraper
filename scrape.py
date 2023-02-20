@@ -73,9 +73,9 @@ def remove_dups(lst):
 
 def songs():
     """
-    Returns the songs in an album in a dictionary format.
+    Returns the songs of an artist's albums (stored in `album_dict`) in a dictionary format.
     Keys are albums, values are song lists.
-    Requires album_dict is not empty
+    Requires `album_dict` is not empty
     """
     assert album_dict != {}
     song_dict = {}
