@@ -55,21 +55,6 @@ def remove_dict_dups(d):
     for val in new_dict:
         d[val] = new_dict[val]
 
-def remove_dups(lst):
-    """
-    Returns a copy of the list with all occurrences of duplicate removed 
-    (except for first instance)
-    Parameter lst: must be a non-nested list
-    """
-    assert isinstance(lst, list)
-
-    copylist = []
-    for item in lst:
-        if item not in copylist:
-            copylist.append(item)
-
-    return copylist
-
 def songs(url):
     """
     Returns the songs of an artist's albums in a dictionary format.
