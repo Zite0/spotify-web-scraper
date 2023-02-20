@@ -1,13 +1,13 @@
+import csv
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
 spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='936004f3ef804d04b78af09dbbcd8357',client_secret='56f682b2a40b4bb1b645cd2030271a49'))
 
-def albums(url):
+def uri_to_url(url):
     """
-    Returns the album names of a certain artist as a dictionary, given the artist's URL.
-    Keys are IDs, values are album names.
-
+    Returns the URI of an artist, given the artist's URL
+    
     Parameter url: URL of artist, given as a string
     Preconditions: must be a valid URL, must be a string
     """
@@ -17,6 +17,18 @@ def albums(url):
     # convert URL to URI
     length = len('https://open.spotify.com/artist/')
     uri = url[length:]
+
+    return uri
+
+def albums(url):
+    """
+    Returns the album names of a certain artist as a dictionary, given the artist's URL.
+    Keys are IDs, values are album names.
+
+    Parameter url: URL of artist, given as a string
+    Preconditions: must be a valid URL, must be a string
+    """
+    uri = uri_to_url(url)
 
     results = spotify.artist_albums(uri, album_type='album')
     albums = results['items']
@@ -89,5 +101,5 @@ def to_csv(url):
     Parameter url: URL of artist, given as a string
     Preconditions: must be a valid URL, must be a string
     """
-    pass
+    fields = ['Album','Song']
     
