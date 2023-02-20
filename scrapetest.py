@@ -24,4 +24,4 @@ from introcs import assert_equals
 #assert_equals(lst2,scrape.remove_dups(lst1))
 
 #print(scrape.songs('https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH'))
-scrape.to_csv('https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH')
+scrape.spotify_csv('https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH')

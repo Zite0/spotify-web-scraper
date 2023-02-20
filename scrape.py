@@ -96,7 +96,7 @@ def songs(url):
 
     return song_dict
 
-def to_csv(url):
+def spotify_csv(url):
     """
     Returns a CSV file with an artist's songs and albums, given the artist's URL.
     Parameter url: URL of artist, given as a string
