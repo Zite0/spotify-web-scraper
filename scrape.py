@@ -120,5 +120,5 @@ def to_csv(url):
     artist = artist_data['name']
     csvName = str(artist) + '.csv'
 
-    print(artistframe)
+    return artistframe.to_csv(csvName)
     
