@@ -1,4 +1,5 @@
-import csv
+import pandas
+from pandas import DataFrame as df
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -106,20 +107,21 @@ def to_csv(url):
 
     albumlist = []
     songlist = []
-    for album in data:
-        albumlist.append(album)
-        songlist.append(data[album])
-        
+    for name in data:
+        albumlist.append(name)
+        songlist.append(data[name])
+
+    artistframe = df({})
+    for song in songlist:
+        for album in albumlist:
+            songframe = df({
+                album: song,
+            })
+        pandas.concat([artistframe,songframe])
 
     # get artist name
     uri = uri_to_url(url)
     artist_data = spotify.artist(uri)
     artist = artist_data['name']
     csvName = str(artist) + '.csv'
-
-    with open(csvName,'w') as csvfile:
-        writer = csv.writer(csvfile, delimiter=' ')
-        writer.writerows(songlist)
-        
-    return csvfile
     
