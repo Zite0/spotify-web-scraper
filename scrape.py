@@ -117,11 +117,13 @@ def to_csv(url):
             songframe = df({
                 album: song,
             })
-        pandas.concat([artistframe,songframe])
+            frame = pandas.concat([songframe,artistframe],axis=1)
 
     # get artist name
     uri = uri_to_url(url)
     artist_data = spotify.artist(uri)
     artist = artist_data['name']
     csvName = str(artist) + '.csv'
+
+    print(frame)
     
