@@ -24,4 +24,4 @@ lst2 = [1]
 assert_equals(lst2,scrape.remove_dups(lst1))
 
 print(scrape.albums('https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH'))
-#print(scrape.songs())
+print(scrape.songs())

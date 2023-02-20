@@ -70,4 +70,30 @@ def remove_dups(lst):
             copylist.append(item)
 
     return copylist
+
+def songs():
+    """
+    Returns the songs in an album in a dictionary format.
+    Keys are albums, values are song lists.
+    Requires album_dict is not empty
+    """
+    assert album_dict != {}
+    song_dict = {}
+
+    for album_id in album_dict:
+        results = spotify.album_tracks(album_id)
+        songs = results['items']
+
+        # check for more results
+        while results['next']:
+            results = spotify.next(results)
+            songs.extend(results['items'])
+
+        songlist = []
+        for song in songs:
+            songlist.append(song['name'])
+
+        song_dict[album_dict[album_id]] = songlist
+
+    return song_dict
     
