@@ -3,12 +3,10 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='936004f3ef804d04b78af09dbbcd8357',client_secret='56f682b2a40b4bb1b645cd2030271a49'))
 
-album_dict = {}
-
 def albums(url):
     """
-    Returns the album names of a certain artist as a list, given the artist's URL.
-    Album names are stored in the dictionary `album_dict` based on IDs.
+    Returns the album names of a certain artist as a dictionary, given the artist's URL.
+    Keys are IDs, values are album names.
 
     Parameter url: URL of artist, given as a string
     Preconditions: must be a valid URL, must be a string
@@ -29,12 +27,13 @@ def albums(url):
         albums.extend(results['items'])
 
     # add album names to dictionary with IDs
+    album_dict = {}
     for album in albums:
         album_dict[album['id']] = album['name']
 
-    remove_dict_dups(album_dict)    
-    
-    return list(album_dict.values())
+    remove_dict_dups(album_dict)
+
+    return(album_dict)
 
 def remove_dict_dups(d):
     """
@@ -71,13 +70,15 @@ def remove_dups(lst):
 
     return copylist
 
-def songs():
+def songs(url):
     """
-    Returns the songs of an artist's albums (stored in `album_dict`) in a dictionary format.
+    Returns the songs of an artist's albums in a dictionary format.
     Keys are albums, values are song lists.
-    Requires `album_dict` is not empty
+    Parameter url: URL of artist, given as a string
+    Preconditions: must be a valid URL, must be a string
     """
-    assert album_dict != {}
+
+    album_dict = albums(url)
     song_dict = {}
 
     for album_id in album_dict:
