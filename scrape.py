@@ -112,12 +112,13 @@ def to_csv(url):
         songlist.append(data[name])
 
     artistframe = df({})
-    for song in songlist:
-        for album in albumlist:
+    for album in albumlist:
+        for song in songlist:
             songframe = df({
                 album: song,
             })
-            frame = pandas.concat([songframe,artistframe],axis=1)
+            #print(songframe)
+            #frame = pandas.concat([songframe,artistframe],axis=1)
 
     # get artist name
     uri = uri_to_url(url)
@@ -125,5 +126,5 @@ def to_csv(url):
     artist = artist_data['name']
     csvName = str(artist) + '.csv'
 
-    print(frame)
+    print(data)
     
