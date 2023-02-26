@@ -1,4 +1,3 @@
-import pandas
 from pandas import DataFrame as df
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
