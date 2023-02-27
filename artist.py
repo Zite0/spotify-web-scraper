@@ -1,11 +1,19 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from credentials import *
 
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='936004f3ef804d04b78af09dbbcd8357',client_secret='56f682b2a40b4bb1b645cd2030271a49'))
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
 class Artist:
     """ 
-    Artitst class 
+    Artist class 
+
+    json: json dictionary from spotify API 
+    name: artist name 
+    id: aritst id 
+    album: dictionary of the form {(album, year) : [tracks]} with all albums from artist and 
+    all songs associated w that album
+
     """
     def __init__(self, json):
         self.json = json 

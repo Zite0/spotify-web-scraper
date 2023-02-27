@@ -1,8 +1,9 @@
 from pandas import DataFrame as df
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from credentials import CLIENT_SECRET, CLIENT_ID
 
-spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id='936004f3ef804d04b78af09dbbcd8357',client_secret='56f682b2a40b4bb1b645cd2030271a49'))
+spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
 def uri_to_url(url):
     """
@@ -95,29 +96,23 @@ def songs(url):
 
     return song_dict
 
-def spotify_csv(url):
+def spotify_csv(artist, coder_number):
     """
     Returns a CSV file with an artist's songs and albums, given the artist's URL.
     Parameter url: URL of artist, given as a string
     Preconditions: must be a valid URL, must be a string
     """
 
-    data = songs(url)
+    name = artist.name
+    albums = artist.albums # dictionary of format {(album_name, year): [song list]} -> all albums from artist 
 
-    albumlist = []
-    songlist = []
-    for name in data:
-        albumlist.append(name)
-        songlist.append(data[name])
+    csvColumns = ['Coder #','Artist','Album Name','Album Year','Song Name','UndocuSongs?','Notes']
+    data = {[]}
 
-    artistframe = df(songlist).transpose()
-    artistframe.columns = albumlist
+    artistdict = [coder_number, name, albums.values, albums.keys]
+    artistframe = df(data=artistdict,columns=['Song Name'])
 
-    # get artist name
-    uri = uri_to_url(url)
-    artist_data = spotify.artist(uri)
-    artist = artist_data['name']
-    csvName = str(artist) + '.csv'
+    csvName = name + '.csv'
 
     return artistframe.to_csv(csvName)
     
