@@ -1,5 +1,6 @@
 from pandas import DataFrame as df
 import spotipy
+from artist import Artist
 from spotipy.oauth2 import SpotifyClientCredentials
 from credentials import CLIENT_SECRET, CLIENT_ID
 
@@ -68,35 +69,48 @@ def remove_dict_dups(d):
     for val in new_dict:
         d[val] = new_dict[val]
 
-def songs(url):
+
+
+def _songInfo(artist,coder_number =0):
     """
-    Returns the songs of an artist's albums in a dictionary format.
-    Keys are albums, values are song lists.
-    Parameter url: URL of artist, given as a string
-    Preconditions: must be a valid URL, must be a string
+    Returns a 2d list of lists of all the songs by a given artist with the following
+    information per each individual row: 
+    Coder #, Artist,Album Name,Album Year,Song Name,UndocuSongs,Notes (in this order)
+    
+    Requires that artist be an Artist object. 
     """
 
-    album_dict = albums(url)
-    song_dict = {}
+    assert isinstance(artist,Artist)
 
-    for album_id in album_dict:
-        results = spotify.album_tracks(album_id)
-        songs = results['items']
+    songInfo = []
+    innerList = []
 
-        # check for more results
-        while results['next']:
-            results = spotify.next(results)
-            songs.extend(results['items'])
+    albums = artist.get_albums()
 
-        songlist = []
-        for song in songs:
-            songlist.append(song['name'])
+    albumKeys = list(albums.keys())
+    albumKeys.reverse()
 
-        song_dict[album_dict[album_id]] = songlist
+    for key in albumKeys:
+        for track in albums[key]:
+            innerList.append(coder_number)
+            innerList.append(artist.name)
+            innerList.append(key[0])
+            innerList.append(key[1])
+            innerList.append(track)
+            innerList.append('')
+            innerList.append('')
 
-    return song_dict
+            songInfo.append(innerList)
+            innerList = []
+    
 
-def spotify_csv(artist, coder_number):
+    return songInfo
+
+
+        
+
+
+def spotify_csv(artist, coder_number=0):
     """
     Returns a CSV file with an artist's songs and albums, given the artist's URL.
     Parameter url: URL of artist, given as a string
@@ -104,15 +118,15 @@ def spotify_csv(artist, coder_number):
     """
 
     name = artist.name
-    albums = artist.albums # dictionary of format {(album_name, year): [song list]} -> all albums from artist 
 
     csvColumns = ['Coder #','Artist','Album Name','Album Year','Song Name','UndocuSongs?','Notes']
-    data = {[]}
 
-    artistdict = [coder_number, name, albums.values, albums.keys]
-    artistframe = df(data=artistdict,columns=['Song Name'])
+    data = _songInfo(artist=artist,coder_number=coder_number)
 
-    csvName = name + '.csv'
+    artistframe = df(data=data,columns= csvColumns)
 
-    return artistframe.to_csv(csvName)
+    csvName = name + '.xlsx'
+    artistframe.to_excel(csvName,index=False)
+
+    return artistframe
     
