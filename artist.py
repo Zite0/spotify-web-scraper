@@ -31,9 +31,6 @@ class Artist:
         """
         Returns the album names of a certain artist as a dictionary, given the artist's URL.
         Keys are IDs, values are album names.
-
-        Parameter url: URL of artist, given as a string
-        Preconditions: must be a valid URL, must be a string
         """
 
         results = sp.artist_albums(self.id, album_type='album',country='US')
