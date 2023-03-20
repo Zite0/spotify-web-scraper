@@ -42,12 +42,16 @@ def _songInfo(artist,coder_number =0):
     return songInfo
 
 
-def spotify_csv(artist, coder_number=0):
+def spotify_csv(artist_name, coder_number=0):
     """
-    Returns a CSV file with an artist's songs and albums, given an Artist instance.
-    Parameter artist: instance of Artist (must be an Artist object)
-    Parameter coder_number: coder number to put in spreadsheet (must be an int)
+    Returns a CSV file with an artist's songs and albums, given an artist's name.
+    Parameter artist_name: artist name as a string
+    Parameter coder_number: coder number to put in spreadsheet (must be an int; default is zero)
     """
+    # instantiate artist
+    result = sp.search(q = artist_name, type = 'artist')
+    artists = result["artists"]["items"]
+    artist = Artist(artists[0])
 
     name = artist.name
 
@@ -61,9 +65,3 @@ def spotify_csv(artist, coder_number=0):
     artistframe.to_excel(csvName,index=False)
 
     return artistframe
-
-def artistAlbums(artist_name):
-    """
-    Returns a CSV file with an artist's songs and albums, given an artist's name.
-    Parameter artist: artist name as a string
-    """
