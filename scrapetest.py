@@ -33,11 +33,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,c
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
-result = sp.search(q = 'Red Hot Chili Peppers', type = 'artist')
+result = sp.search(q = 'Arctic Monkeys', type = 'artist')
 artists = result["artists"]["items"]
 artist = artist.Artist(artists[0])
 #print(artist.songs())
-y = artist.songs().keys()
-
-mylist = list(y)
-print(mylist)
+print(artist.songs().keys())

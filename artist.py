@@ -77,7 +77,7 @@ class Artist:
     def songs(self):
         """
         Returns the songs of an artist's albums in a dictionary format.
-        Keys are albums, values are song lists.
+        Keys are albums and years, values are song lists.
         Parameter url: URL of artist, given as a string
         Preconditions: must be a valid URL, must be a string
         """
@@ -97,7 +97,7 @@ class Artist:
             for song in songs:
                 songlist.append(song['name'])
 
-            song_dict[album_dict[album_id]] = songlist
+            song_dict[(album_dict[album_id],self.get_album_year(album_dict[album_id]))] = songlist
 
         return song_dict
 
@@ -123,7 +123,7 @@ class Artist:
     def get_album_year(self, album_name):
         """
         Returns album's release year given its name.
-        Returns if album is not found (invalid album name)
+        Returns 0 if album is not found (invalid album name)
 
         Parameter album_name: of type string, it's the key of the album you're looking for
         """
