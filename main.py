@@ -45,6 +45,7 @@ def main():
             selection = input(f"Did you mean: {artists[0]['name']}? Type 'Yes' or 'No'.\n")
         if (selection.upper() == 'YES'):
             artist = Artist(artists[0])
+            print(artists[0])
             artists_list.append(artist)
         else:
             continue
