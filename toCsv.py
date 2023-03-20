@@ -85,7 +85,7 @@ def _songInfo(artist,coder_number =0):
     songInfo = []
     innerList = []
 
-    albums = artist.get_albums()
+    albums = artist.getAlbums()
 
     albumKeys = list(albums.keys())
     albumKeys.reverse()

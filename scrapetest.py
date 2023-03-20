@@ -37,7 +37,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,c
 result = sp.search(q = 'Red Hot Chili Peppers', type = 'artist')
 artists = result["artists"]["items"]
 artist = artist.Artist(artists[0])
-songs = artist.get_album_songs('Return of the Dream Canteen')
+songs = artist.getAlbums()
 print(songs)
 
 

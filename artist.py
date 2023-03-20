@@ -25,7 +25,7 @@ class Artist:
         self.json = json 
         self.name = json["name"]
         self.id = json["id"]
-        self.albums = self.get_albums()
+        self.albums = self.getAlbums()
 
     def albumDict(self):
         """
@@ -74,12 +74,10 @@ class Artist:
             d[val] = new_dict[val]
 
     
-    def songs(self):
+    def getAlbums(self):
         """
         Returns the songs of an artist's albums in a dictionary format.
         Keys are albums and years, values are song lists.
-        Parameter url: URL of artist, given as a string
-        Preconditions: must be a valid URL, must be a string
         """
         album_dict = self.albumDict()
         song_dict = {}
@@ -97,23 +95,18 @@ class Artist:
             for song in songs:
                 songlist.append(song['name'])
 
-            song_dict[(album_dict[album_id],self.get_album_year(album_dict[album_id]))] = songlist
+            song_dict[(album_dict[album_id],self.get_album_year(album_id))] = songlist
 
         return song_dict
     
-    def get_album_year(self, album_name):
+    def get_album_year(self, album_id):
         """
-        Returns album's release year given its name.
-        Returns 0 if album is not found (invalid album name)
+        Returns album's release year given its ID.
 
-        Parameter album_name: of type string, it's the key of the album you're looking for
+        Parameter album_id: Spotify album ID
         """
-        albums = self.albums 
-        for (name, year) in albums.keys():
-            if name == album_name:
-                return year 
-            
-        return 0
+        album = sp.album(album_id)
+        return int(album["release_date"][:4])
 
     def printing(self):
         """
