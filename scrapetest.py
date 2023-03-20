@@ -1,6 +1,11 @@
 import toCsv
 import artist
 from introcs import assert_equals
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+from credentials import *
+
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
 # Test remove_dups
 
@@ -25,4 +30,14 @@ from introcs import assert_equals
 #assert_equals(lst2,scrape.remove_dups(lst1))
 
 #print(scrape.songs('https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH'))
-toCsv.spotify_csv('https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH')
+
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
+
+result = sp.search(q = 'Red Hot Chili Peppers', type = 'artist')
+artists = result["artists"]["items"]
+artist = artist.Artist(artists[0])
+#print(artist.songs())
+y = artist.songs().keys()
+
+mylist = list(y)
+print(mylist)

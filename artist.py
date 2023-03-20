@@ -36,7 +36,7 @@ class Artist:
         Preconditions: must be a valid URL, must be a string
         """
 
-        results = sp.artist_albums(self.id, album_type='album')
+        results = sp.artist_albums(self.id, album_type='album',country='US')
         albums = results['items']
 
         # check for more results
