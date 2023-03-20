@@ -4,6 +4,8 @@ from artist import Artist
 from spotipy.oauth2 import SpotifyClientCredentials
 from credentials import CLIENT_SECRET, CLIENT_ID
 
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
+
 def _songInfo(artist,coder_number =0):
     """
     Returns a 2d list of lists of all the songs by a given artist with the following
@@ -18,7 +20,7 @@ def _songInfo(artist,coder_number =0):
     songInfo = []
     innerList = []
 
-    albums = artist.getAlbums()
+    albums = artist.albums
 
     albumKeys = list(albums.keys())
     albumKeys.reverse()
@@ -42,9 +44,9 @@ def _songInfo(artist,coder_number =0):
 
 def spotify_csv(artist, coder_number=0):
     """
-    Returns a CSV file with an artist's songs and albums, given the artist's URL.
-    Parameter url: URL of artist, given as a string
-    Preconditions: must be a valid URL, must be a string
+    Returns a CSV file with an artist's songs and albums, given an Artist instance.
+    Parameter artist: instance of Artist (must be an Artist object)
+    Parameter coder_number: coder number to put in spreadsheet (must be an int)
     """
 
     name = artist.name
@@ -59,3 +61,9 @@ def spotify_csv(artist, coder_number=0):
     artistframe.to_excel(csvName,index=False)
 
     return artistframe
+
+def artistAlbums(artist_name):
+    """
+    Returns a CSV file with an artist's songs and albums, given an artist's name.
+    Parameter artist: artist name as a string
+    """

@@ -9,7 +9,7 @@ from credentials import CLIENT_SECRET, CLIENT_ID
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
-result = sp.search(q = 'Red Hot Chili Peppers', type = 'artist')
+result = sp.search(q = 'Halsey', type = 'artist')
 artists = result["artists"]["items"]
 artist = artist.Artist(artists[0])
 songs = artist.getAlbums()
