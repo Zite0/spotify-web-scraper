@@ -8,7 +8,7 @@ class Artist:
     """ 
     Artist class 
 
-    Represents an individual artist, with the following following attributes:
+    Represents an individual artist, with the following attributes:
     - self.json: json dictionary extracted from spotify API 
     - self.name: artist name 
     - self.id: aritst id 
