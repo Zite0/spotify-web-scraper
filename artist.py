@@ -100,25 +100,6 @@ class Artist:
             song_dict[(album_dict[album_id],self.get_album_year(album_dict[album_id]))] = songlist
 
         return song_dict
-
-    def get_albums(self):
-        """
-        Returns a dictionary with (album, year) as key and songs as values
-
-        Has the form: {(album, year) : [tracks]}
-        """
-        album_dict = {}
-        albums = sp.artist_albums(self.id, album_type='album')
-        for album in albums['items']:
-            name = album["name"]
-            album_id = album["id"]
-            tracks = sp.album_tracks(album_id)['items']
-            year = int(album["release_date"][:4])
-            if year >= 2000:
-                track_names = [track['name'] for track in tracks]
-                track_names = list(set(track_names)) # remove dupes 
-                album_dict[name,year] = track_names 
-        return album_dict
     
     def get_album_year(self, album_name):
         """
@@ -133,20 +114,6 @@ class Artist:
                 return year 
             
         return 0
-    
-    def get_album_songs(self, album_name):
-        """
-        Returns list of album's songs year given its name.
-        Returns empty list if album is not found (invalid album name)
-
-        Parameter album_name: of type string, it's the key of the album you're looking for
-        """
-        albums = self.albums 
-        for album_info in albums.keys():
-            if album_info[0] == album_name:
-                return albums[album_info]
-        
-        return []
 
     def printing(self):
         """
@@ -159,3 +126,36 @@ class Artist:
             print(f"Year released: {self.get_album_year(album_name[0])}")
             # print(f"Album {album_name[0]} tracks: {self.albums[album_name]}\n")
             print(f"Album {album_name[0]} tracks: {self.get_album_songs(album_name[0])}\n")
+
+    # def get_album_songs(self, album_name):
+    #     """
+    #     Returns list of album's songs year given its name.
+    #     Returns empty list if album is not found (invalid album name)
+
+    #     Parameter album_name: of type string, it's the key of the album you're looking for
+    #     """
+    #     albums = self.albums 
+    #     for album_info in albums.keys():
+    #         if album_info[0] == album_name:
+    #             return albums[album_info]
+        
+    #     return []
+
+        # def get_albums(self):
+    #     """
+    #     Returns a dictionary with (album, year) as key and songs as values
+
+    #     Has the form: {(album, year) : [tracks]}
+    #     """
+    #     album_dict = {}
+    #     albums = sp.artist_albums(self.id, album_type='album')
+    #     for album in albums['items']:
+    #         name = album["name"]
+    #         album_id = album["id"]
+    #         tracks = sp.album_tracks(album_id)['items']
+    #         year = int(album["release_date"][:4])
+    #         if year >= 2000:
+    #             track_names = [track['name'] for track in tracks]
+    #             track_names = list(set(track_names)) # remove dupes 
+    #             album_dict[name,year] = track_names 
+    #     return album_dict
