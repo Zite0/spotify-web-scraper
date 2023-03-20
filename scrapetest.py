@@ -1,4 +1,5 @@
 import toCsv
+import artist
 from introcs import assert_equals
 
 # Test remove_dups
