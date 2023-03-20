@@ -105,17 +105,17 @@ class Artist:
         album = sp.album(album_id)
         return int(album["release_date"][:4])
 
-    def printing(self):
-        """
-        Prints artist information
-        """
-        print(f"Artist name: {self.name}")
-        for album_name in self.albums.keys():
-            print(f"Album name: {album_name[0]}")
-            # print(f"Year released: {album_name[1]}")
-            print(f"Year released: {self.get_album_year(album_name[0])}")
-            # print(f"Album {album_name[0]} tracks: {self.albums[album_name]}\n")
-            print(f"Album {album_name[0]} tracks: {self.get_album_songs(album_name[0])}\n")
+    # def printing(self):
+    #     """
+    #     Prints artist information
+    #     """
+    #     print(f"Artist name: {self.name}")
+    #     for album_name in self.albums.keys():
+    #         print(f"Album name: {album_name[0]}")
+    #         # print(f"Year released: {album_name[1]}")
+    #         print(f"Year released: {self.get_album_year(album_name[0])}")
+    #         # print(f"Album {album_name[0]} tracks: {self.albums[album_name]}\n")
+    #         print(f"Album {album_name[0]} tracks: {self.get_album_songs(album_name[0])}\n")
 
     # def get_album_songs(self, album_name):
     #     """
