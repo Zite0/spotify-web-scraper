@@ -129,4 +129,3 @@ def spotify_csv(artist, coder_number=0):
     artistframe.to_excel(csvName,index=False)
 
     return artistframe
-    
