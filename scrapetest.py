@@ -9,10 +9,11 @@ from credentials import CLIENT_SECRET, CLIENT_ID
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
-result = sp.search(q = 'Halsey', type = 'artist')
+result = sp.search(q = 'Queen', type = 'artist')
 artists = result["artists"]["items"]
 artist = artist.Artist(artists[0])
-songs = artist.getAlbums()
-print(songs)
 
-y = toCsv.spotify_csv(artist=artist,coder_number = 4)
+path1 = r'C:\Users\luis2\OneDrive\Documentos\GitHub\spotify-web-scraper\spreadsheets\\'
+
+
+y = toCsv.spotify_csv(artist=artist,coder_number = 4,path=path1)
