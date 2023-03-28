@@ -18,7 +18,6 @@ def _songInfo(artist,coder_number =0):
     assert isinstance(artist,Artist)
 
     songInfo = []
-    innerList = []
 
     albums = artist.albums
 
@@ -27,41 +26,31 @@ def _songInfo(artist,coder_number =0):
 
     for key in albumKeys:
         for track in albums[key]:
-            innerList.append(coder_number)
-            innerList.append(artist.name)
-            innerList.append(key[0])
-            innerList.append(key[1])
-            innerList.append(track)
-            innerList.append('')
-            innerList.append('')
+            innerList = [coder_number, artist.name,key[0], key[1], track, "", ""]
 
             songInfo.append(innerList)
-            innerList = []
-    
 
     return songInfo
 
 
-def spotify_csv(artist_name, coder_number=0):
+def spotify_csv(artist_lst, file_name, coder_number=0):
     """
     Returns a CSV file with an artist's songs and albums, given an artist's name.
     Parameter artist_name: artist name as a string
     Parameter coder_number: coder number to put in spreadsheet (must be an int; default is zero)
     """
-    # instantiate artist
-    result = sp.search(q = artist_name, type = 'artist')
-    artists = result["artists"]["items"]
-    artist = Artist(artists[0])
+    data = []
 
-    name = artist.name
+    for artist in artist_lst:
+        new_data = _songInfo(artist=artist,coder_number=coder_number)
+        data += new_data 
+
 
     csvColumns = ['Coder #','Artist','Album Name','Album Year','Song Name','UndocuSongs?','Notes']
 
-    data = _songInfo(artist=artist,coder_number=coder_number)
-
     artistframe = df(data=data,columns= csvColumns)
 
-    csvName = name + '.xlsx'
+    csvName = file_name + '.xlsx'
     artistframe.to_excel(csvName,index=False)
 
     return artistframe

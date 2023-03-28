@@ -6,12 +6,23 @@ from toCsv import *
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
-# artists_list = []
-# coder_number = 0
-
 def main():
     artists_list = []
     coder_number = 0
+    file_name = ""
+
+    while 1:
+        file_name = input("What do you want to name your file?\n")
+        if file_name == "" or file_name.isspace():
+            print("Invalid file name. Please try again.\n")
+            continue 
+        selection = input(f"Did you mean number {file_name}? Type 'Yes' or 'No'.\n")
+        while selection.upper() not in ['YES', 'NO']:
+            selection = input(f"Did you mean number {file_name}? Type 'Yes' or 'No'.\n")
+        if (selection.upper() == 'YES'):
+            break 
+        else:
+            continue 
 
     while 1:
         coder_number = input("Input your coder number.\n")
@@ -45,15 +56,12 @@ def main():
             selection = input(f"Did you mean: {artists[0]['name']}? Type 'Yes' or 'No'.\n")
         if (selection.upper() == 'YES'):
             artist = Artist(artists[0])
-            print(artists[0])
+            # print(artists[0])
             artists_list.append(artist)
         else:
             continue
-
-    print(f"Coder number: {coder_number}\n")
-    for artist in artists_list:
-            artist.printing()
-            # spotify_csv(artist, coder_number)
+    
+    spotify_csv(artists_list, file_name, coder_number)
 
 if __name__ == '__main__':
-	main()
+    main() 
