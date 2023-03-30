@@ -16,9 +16,9 @@ def main():
         if file_name == "" or file_name.isspace():
             print("Invalid file name. Please try again.\n")
             continue 
-        selection = input(f"Did you mean number {file_name}? Type 'Yes' or 'No'.\n")
+        selection = input(f"Did you mean file name {file_name}? Type 'Yes' or 'No'.\n")
         while selection.upper() not in ['YES', 'NO']:
-            selection = input(f"Did you mean number {file_name}? Type 'Yes' or 'No'.\n")
+            selection = input(f"Did you mean file name {file_name}? Type 'Yes' or 'No'.\n")
         if (selection.upper() == 'YES'):
             break 
         else:
