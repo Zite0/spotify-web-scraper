@@ -3,11 +3,15 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from credentials import *
 from artist import Artist
 from toCsv import * 
+import multiprocessing
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
 
+def to_artist(artist_info):
+    return Artist(artist_info)
+
 def main():
-    artists_list = []
+    artist_name_list = []
     coder_number = 0
     file_name = ""
 
@@ -55,13 +59,38 @@ def main():
         while selection.upper() not in ['YES', 'NO']:
             selection = input(f"Did you mean: {artists[0]['name']}? Type 'Yes' or 'No'.\n")
         if (selection.upper() == 'YES'):
-            artist = Artist(artists[0])
-            # print(artists[0])
-            artists_list.append(artist)
+            artist_name_list.append(artists[0])
         else:
             continue
-    
-    spotify_csv(artists_list, file_name, coder_number)
+
+    pool = multiprocessing.Pool()
+    result = pool.map(to_artist, artist_name_list)
+
+    spotify_csv(result, file_name, coder_number)
 
 if __name__ == '__main__':
     main() 
+
+
+    # while 1:
+    #     user_input = input("Please write artist name. Type 'QUIT' to exit program.\n")
+    #     if user_input.upper() == "QUIT":
+    #         break
+    #     if user_input.upper() == "" or user_input.isspace():
+    #         print("Invalid artist. Please try again.")
+    #         continue
+    #     result = sp.search(q = user_input, type = "artist")
+    #     # print(result) # -> print this to view json string 
+    #     artists = result["artists"]["items"]
+    #     if len(artists) == 0:
+    #         print("Invalid artist. Please try again.")
+    #         continue
+    #     selection = input(f"Did you mean: {artists[0]['name']}? Type 'Yes' or 'No'.\n")
+    #     while selection.upper() not in ['YES', 'NO']:
+    #         selection = input(f"Did you mean: {artists[0]['name']}? Type 'Yes' or 'No'.\n")
+    #     if (selection.upper() == 'YES'):
+    #         artist = Artist(artists[0])
+    #         # print(artists[0])
+    #         artists_list.append(artist)
+    #     else:
+    #         continue
