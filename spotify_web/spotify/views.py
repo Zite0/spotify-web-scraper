@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request
 
+import toCsv
+import main2
+
 def index(request):
     if request.POST:
         number = request.POST['number'].strip()
@@ -43,6 +46,14 @@ def index(request):
             }
             artist_lst = toList(request.POST['artist'])
             print(artist_lst)
+            artist_objects = main2.artistCreator(artist_lst)
+
+            # toCsv.spotify_csv(artist_objects,'spreadsheets/artists',number)
+            toCsv.spotify_csv(artist_objects,'spreadsheets/artists',number)
+            with open('spreadsheets/artists.xlsx', 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                response['Content-Disposition'] = 'inline; filename=artists'
+                return response
 
     else:
         context = {
