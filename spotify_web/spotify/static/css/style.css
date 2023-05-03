@@ -12,8 +12,9 @@ body {
     margin-bottom: 5%;
 }
 
-.header h1 {
+.header a {
     color: black;
+    text-decoration: none;
     font-style: italic;
 }
 
@@ -89,6 +90,14 @@ body {
     display: none;
 }
 
+.link {
+    margin-bottom: 5%;
+}
+
+a {
+    color: rgb(40, 86, 63);
+}
+
 .footer {
     text-align: center;
     padding: 20px;
@@ -99,6 +108,10 @@ body {
 }
 
 @media (max-width: 800px) {
+    .header {
+        margin-bottom: 10%;
+    }
+
     .submit {
         width: 35%;
         margin-right: 32.5%;

@@ -68,8 +68,8 @@ def main():
 
     spotify_csv(result, file_name, coder_number)
 
-if __name__ == '__main__':
-    main() 
+# if __name__ == '__main__':
+#     main() 
 
 
     # while 1:

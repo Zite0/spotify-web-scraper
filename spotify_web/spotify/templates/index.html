@@ -13,12 +13,12 @@
 <body>
 
   <div class="header">
-    <h1>get data from spotify</h1>
+    <a href="/"><h1>get data from spotify</h1></a>
   </div>
 
   <div class="main">
 
-    <div class="form">
+    <div class="form {{ display_form }}">
       <form method="post" action="{% url 'spotify:index' %}">
         {% csrf_token %}
 
@@ -34,6 +34,13 @@
         <input type="submit" class="submit" name="download" value="Download">
 
       </form>
+    </div>
+
+    <div class="form {{ display_confirm }}">
+      <h3>Your data is currently downloading.</h3>
+      <a href="/"><p class="link">Would you like data for another artist?</p></a>
+      <p>Coder number: {{ number }}</p>
+      <p>Artist: {{ artist }}</p>
     </div>
 
   </div>
