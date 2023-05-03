@@ -24,11 +24,14 @@
 
         <div class="label-input">
           <label for="coder_number">Coder Number</label><br>
-          <input id="coder_number" type="text" name="number">
+          <input id="coder_number" type="text" name="number" value="{{ sticky_number }}">
+          <p class="feedback {{ number_feedback }}">Please enter your coder number.</p>
         </div>
+
         <div class="label-input">
           <label for="artist">Artist Name</label><br>
-          <input id="artist" type="text" name="artist">
+          <input id="artist" type="text" name="artist" value="{{ sticky_artist }}">
+          <p class="feedback {{ artist_feedback }}">Please enter an artist name.</p>
         </div>
 
         <input type="submit" class="submit" name="download" value="Download">
