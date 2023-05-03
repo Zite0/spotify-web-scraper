@@ -48,7 +48,7 @@ def index(request):
             }
         
             artist_lst = toList(request.POST['artist'])
-            artist_objects = main2.artistCreator(artist_lst)
+            artist_objects = main2.artistParallel(artist_lst)
             return excelArtist(artist_objects, number)
 
     else:
