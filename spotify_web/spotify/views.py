@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request
+from django.shortcuts import redirect
 
 import toCsv
 import main2
+import time
 
 def index(request):
     if request.POST:
@@ -44,16 +46,10 @@ def index(request):
             'number': request.POST['number'],
             'artist': request.POST['artist'],
             }
+        
             artist_lst = toList(request.POST['artist'])
-            print(artist_lst)
             artist_objects = main2.artistCreator(artist_lst)
-
-            # toCsv.spotify_csv(artist_objects,'spreadsheets/artists',number)
-            toCsv.spotify_csv(artist_objects,'spreadsheets/artists',number)
-            with open('spreadsheets/artists.xlsx', 'rb') as fh:
-                response = HttpResponse(fh.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                response['Content-Disposition'] = 'inline; filename=artists'
-                return response
+            return excelArtist(artist_objects, number)
 
     else:
         context = {
@@ -63,6 +59,16 @@ def index(request):
         'artist_feedback': 'hidden',
         }
     return render(request, 'index.html', context)
+
+"""
+Given a list of artist objects and a coder number, returns a .xlsx file of artist albums and songs.
+"""
+def excelArtist(artist_objects, number):
+    toCsv.spotify_csv(artist_objects,'spreadsheets/artists',number)
+    with open('spreadsheets/artists.xlsx', 'rb') as fh:
+        response = HttpResponse(fh.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        response['Content-Disposition'] = 'inline; filename=artists'
+        return response
 
 """
 Takes a string separated by commas and returns a list.
