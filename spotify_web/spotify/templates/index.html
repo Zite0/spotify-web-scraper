@@ -29,9 +29,10 @@
         </div>
 
         <div class="label-input">
-          <label for="artist">Artist Name</label><br>
+          <label for="artist">Artist Names</label>
+          <p class="instruct">(separate by commas)</p>
           <input id="artist" type="text" name="artist" value="{{ sticky_artist }}">
-          <p class="feedback {{ artist_feedback }}">Please enter an artist name.</p>
+          <p class="feedback {{ artist_feedback }}">Please enter at least one artist.</p>
         </div>
 
         <input type="submit" class="submit" name="download" value="Download">
@@ -41,9 +42,9 @@
 
     <div class="form {{ display_confirm }}">
       <h3>Your data is currently downloading.</h3>
-      <a href="/"><p class="link">Would you like data for another artist?</p></a>
+      <a href="/"><p class="link">Would you like data for more artists?</p></a>
       <p>Coder number: {{ number }}</p>
-      <p>Artist: {{ artist }}</p>
+      <p>Artists: {{ artist }}</p>
     </div>
 
   </div>

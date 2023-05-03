@@ -50,6 +50,10 @@ body {
     margin-bottom: 5px;
 }
 
+.instruct {
+    font-size: 11px;
+}
+
 .label-input input {
     margin-top: 5px;
     width: 80%;
