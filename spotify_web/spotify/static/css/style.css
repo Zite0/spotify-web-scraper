@@ -1,0 +1,110 @@
+body {
+    font-family: sans-serif;
+    overflow-x: hidden;
+    letter-spacing: 1px;
+}
+
+/* header */
+
+.header {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.header h1 {
+    color: black;
+    font-style: italic;
+}
+
+
+/* form */
+
+.feedback {
+    color: rgb(186, 17, 17);
+    font-weight: 900;
+}
+
+.form {
+    background-color: rgb(209, 235, 222);
+    width: 40vw;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+    text-align: left;
+    padding-bottom: 25px;
+}
+
+.form h2 {
+    text-align: center;
+}
+
+.label-input {
+    margin-top: 40px;
+    margin-left: 60px;
+}
+
+.label-input p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.label-input input {
+    margin-top: 5px;
+    width: 80%;
+    border: none;
+    height: 20px;
+}
+
+.submit {
+    margin-top: 40px;
+    border: none;
+    background-color: white;
+    height: 30px;
+    width: 20%;
+    border-radius: 10px;
+    margin-right: 40%;
+    margin-left: 40%;
+}
+
+.submit:hover {
+    cursor: pointer;
+    background-color: rgb(155, 201, 178);
+    color: white;
+}
+
+/* main page */
+
+.italic {
+    font-style: italic;
+}
+
+.main {
+    margin-right: 10%;
+    margin-left: 10%;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+}
+
+.footer h4 {
+    font-weight: 200;
+}
+
+@media (max-width: 800px) {
+    .submit {
+        width: 35%;
+        margin-right: 32.5%;
+        margin-left: 32.5%;
+    }
+    .form {
+        width: 60vw;
+    }
+}

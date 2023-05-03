@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <title>CoLAB Spotify Data</title>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>get data from spotify</h1>
+  </div>
+
+  <div class="main">
+
+    <div class="form">
+      <form method="post" action="{% url 'spotify:index' %}">
+        {% csrf_token %}
+
+        <div class="label-input">
+          <label for="coder_number">Coder Number</label><br>
+          <input id="coder_number" type="text" name="number">
+        </div>
+        <div class="label-input">
+          <label for="artist">Artist Name</label><br>
+          <input id="artist" type="text" name="artist">
+        </div>
+
+        <input type="submit" class="submit" name="download" value="Download">
+
+      </form>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <h4>&#169; 2023 CoLAB.</h4>
+  </div>
+  
+
+</body>
+
+</html>
