@@ -21,7 +21,6 @@ def artistCreator(myList):
 
     artistList = []
 
-    lock = Lock()
 
     for artist in myList:
         result = sp.search(q=artist,type='artist')
