@@ -1,6 +1,10 @@
 """
 General constants for web scraper
 """
+import os
 
-CLIENT_ID = '936004f3ef804d04b78af09dbbcd8357'
-CLIENT_SECRET = '56f682b2a40b4bb1b645cd2030271a49'
+# Guide on how to add env. variables on Mac & Linux:
+# https://www.youtube.com/watch?v=5iWhQWVXosU
+
+CLIENT_ID = os.environ.get('SP_USER')
+CLIENT_SECRET = os.environ.get('SP_PASS')

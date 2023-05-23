@@ -4,9 +4,10 @@ from artist import Artist
 from spotipy.oauth2 import SpotifyClientCredentials
 from credentials import CLIENT_SECRET, CLIENT_ID
 
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,client_secret=CLIENT_SECRET))
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
 
-def _songInfo(artist,coder_number =0):
+
+def _songInfo(artist, coder_number=0):
     """
     Returns a 2d list of lists of all the songs by a given artist with the following
     information per each individual row: 
@@ -15,7 +16,7 @@ def _songInfo(artist,coder_number =0):
     Requires that artist be an Artist object. 
     """
 
-    assert isinstance(artist,Artist)
+    assert isinstance(artist, Artist)
 
     songInfo = []
 
@@ -26,7 +27,7 @@ def _songInfo(artist,coder_number =0):
 
     for key in albumKeys:
         for track in albums[key]:
-            innerList = [coder_number, artist.name,key[0], key[1], track, "", ""]
+            innerList = [coder_number, artist.name, key[0], key[1], track, "", ""]
 
             songInfo.append(innerList)
 
@@ -42,15 +43,14 @@ def spotify_csv(artist_lst, file_name, coder_number=0):
     data = []
 
     for artist in artist_lst:
-        new_data = _songInfo(artist=artist,coder_number=coder_number)
-        data += new_data 
+        new_data = _songInfo(artist=artist, coder_number=coder_number)
+        data += new_data
 
+    csvColumns = ['Coder #', 'Artist', 'Album Name', 'Album Year', 'Song Name', 'UndocuSongs?', 'Notes']
 
-    csvColumns = ['Coder #','Artist','Album Name','Album Year','Song Name','UndocuSongs?','Notes']
-
-    artistframe = df(data=data,columns= csvColumns)
+    artistframe = df(data=data, columns=csvColumns)
 
     csvName = file_name + '.xlsx'
-    artistframe.to_excel(csvName,index=False)
+    artistframe.to_excel(csvName, index=False)
 
-    return artistframe
+

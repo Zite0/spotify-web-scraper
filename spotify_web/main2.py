@@ -23,7 +23,7 @@ def artistCreator(myList):
 
 
     for artist in myList:
-        result = sp.search(q=artist,type='artist')
+        result = sp.search(q=artist,type='artist',limit=1)
         myArtist = Artist(result['artists']['items'][0])
         artistList.append(myArtist)
 

@@ -18,6 +18,11 @@ body {
     font-style: italic;
 }
 
+.header h2 {
+    font-weight: 100;
+    font-size: 20px;
+}
+
 
 /* form */
 
@@ -107,7 +112,7 @@ a {
     padding: 20px;
 }
 
-.footer h4 {
+.footer h4, .footer h5 {
     font-weight: 200;
 }
 
