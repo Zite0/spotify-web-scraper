@@ -17,7 +17,6 @@ class Artist:
     all songs associated with that album. This dictionary also includes singles.
     """
 
-
     def __init__(self, json):
         """
         json: a json dictionary 
