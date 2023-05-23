@@ -17,9 +17,6 @@ class Artist:
     all songs associated with that album. This dictionary also includes singles.
     """
 
-    # Hidden class attributes:
-    # _singles: A dictionary containing a dictionary with an artists singles. It is merged with 
-    # the dictionary containing the albums. It is deleted once the merge occurs to save memory.
 
     def __init__(self, json):
         """
