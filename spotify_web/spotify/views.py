@@ -3,8 +3,7 @@ from django.http import HttpResponse, request
 from django.shortcuts import redirect
 
 import toCsv
-import main2
-import time
+import artistCreator
 
 def index(request):
     if request.POST:
@@ -48,7 +47,7 @@ def index(request):
             }
         
             artist_lst = toList(request.POST['artist'])
-            artist_objects = main2.artistCreator(artist_lst)
+            artist_objects = artistCreator.artistCreator(artist_lst)
             return excelArtist(artist_objects, number)
 
     else:
@@ -90,4 +89,8 @@ def toList(str):
                 artists.append(str[one:].strip())
                 pos = one
         return artists
+
+def error404(request):
+    return render(request, '404.html')
+
             

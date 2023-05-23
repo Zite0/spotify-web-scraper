@@ -37,10 +37,8 @@ class Artist:
         Keys are IDs, values are album names.
         """
 
-        results = sp.artist_albums(self.id, album_type='album', country='US')
-        singles = sp.artist_albums(self.id, album_type='single', country='US')
+        results = sp.artist_albums(self.id, album_type='album,single', country='US')
 
-        results.update(singles)
         albums = results['items']
 
         # check for more results
@@ -53,7 +51,7 @@ class Artist:
         for album in albums:
             album_dict[album['id']] = album['name']
 
-        # self.remove_dict_dups(album_dict)
+        self.remove_dict_dups(album_dict)
 
         return album_dict
 

@@ -16,8 +16,6 @@ def _songInfo(artist, coder_number=0):
     Requires that artist be an Artist object. 
     """
 
-    assert isinstance(artist, Artist)
-
     songInfo = []
 
     albums = artist.albums
@@ -34,10 +32,11 @@ def _songInfo(artist, coder_number=0):
     return songInfo
 
 
-def spotify_csv(artist_lst, file_name, coder_number=0):
+def spotify_csv(artist_lst: list, file_name: str, coder_number=0):
     """
-    Returns a CSV file with an artist's songs and albums, given an artist's name.
-    Parameter artist_name: artist name as a string
+    Returns a xlsx file with an artist's songs and albums, given an artist's name.
+    Parameter artist_lst: list of Artist objects
+    Parameter file_name: name of the xlsx file
     Parameter coder_number: coder number to put in spreadsheet (must be an int; default is zero)
     """
     data = []
@@ -48,9 +47,9 @@ def spotify_csv(artist_lst, file_name, coder_number=0):
 
     csvColumns = ['Coder #', 'Artist', 'Album Name', 'Album Year', 'Song Name', 'UndocuSongs?', 'Notes']
 
-    artistframe = df(data=data, columns=csvColumns)
+    artistFrame = df(data=data, columns=csvColumns)
 
     csvName = file_name + '.xlsx'
-    artistframe.to_excel(csvName, index=False)
+    artistFrame.to_excel(csvName, index=False)
 
 

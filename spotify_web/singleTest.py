@@ -1,7 +1,7 @@
 from toCsv import *
 from artist import *
 from credentials import *
-from main2 import *
+from artistCreator import *
 
 myList = artistCreator(['artic monkeys'])
 
