@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, request
 from django.shortcuts import redirect
 
+
 import toCsv
 import artistCreator
 
@@ -14,6 +15,7 @@ def index(request):
             context = {
             'number_feedback': '',
             'artist_feedback': 'hidden',
+            'num_artists': 'hidden',
             'sticky_number': number,
             'sticky_artist': artist,
             'display_form': '',
@@ -24,6 +26,7 @@ def index(request):
             context = {
             'number_feedback': 'hidden',
             'artist_feedback': '',
+            'num_artists': 'hidden',
             'sticky_number': number,
             'sticky_artist': artist,
             'display_form': '',
@@ -34,11 +37,23 @@ def index(request):
             context = {
             'number_feedback': '',
             'artist_feedback': '',
+            'num_artists': 'hidden',
             'display_form': '',
             'display_confirm': 'hidden',
             }
 
-        if number != '' and artist != '': #form is valid
+        if artist.count(',') > 2:
+            context = {
+            'number_feedback': 'hidden',
+            'artist_feedback': 'hidden',
+            'num_artists': '',
+            'sticky_number': number,
+            'sticky_artist': artist,
+            'display_form': '',
+            'display_confirm': 'hidden',
+            }
+
+        if number != '' and artist != '' and artist.count(',') <= 2: #form is valid
             context = {
             'display_form': 'hidden',
             'display_confirm': '',
@@ -48,6 +63,7 @@ def index(request):
         
             artist_lst = toList(request.POST['artist'])
             artist_objects = artistCreator.artistCreator(artist_lst)
+            render(request, 'index.html', context)
             return excelArtist(artist_objects, number)
 
     else:
@@ -56,24 +72,27 @@ def index(request):
         'display_confirm': 'hidden',
         'number_feedback': 'hidden',
         'artist_feedback': 'hidden',
+        'num_artists': 'hidden',
         }
     return render(request, 'index.html', context)
 
-"""
-Given a list of artist objects and a coder number, returns a .xlsx file of artist albums and songs.
-"""
+
 def excelArtist(artist_objects, number):
+    """
+    Given a list of artist objects and a coder number, returns a .xlsx file of artist albums and songs.
+    """
     toCsv.spotify_csv(artist_objects,'spreadsheets/artists',number)
     with open('spreadsheets/artists.xlsx', 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         response['Content-Disposition'] = 'inline; filename=artists'
         return response
 
-"""
-Takes a string separated by commas and returns a list.
-Requires that `str` is a string.
-"""
+
 def toList(str):
+    """
+    Takes a string separated by commas and returns a list.
+    Requires that `str` is a string.
+    """
     if ',' not in str:
         return [str]
     else:
