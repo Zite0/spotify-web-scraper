@@ -62,6 +62,11 @@ def index(request):
             }
         
             artist_lst = toList(request.POST['artist'])
+
+            # Slow: try to fix this crap (added by Zite0).
+            while "" in artist_lst:
+                artist_lst.remove("")
+
             artist_objects = artistCreator.artistCreator(artist_lst)
             render(request, 'index.html', context)
             return excelArtist(artist_objects, number)
