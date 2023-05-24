@@ -8,3 +8,4 @@ import os
 
 CLIENT_ID = os.environ.get('SP_USER')
 CLIENT_SECRET = os.environ.get('SP_PASS')
+SECRET_KEY = os.environ.get('SECRET_KEY')
