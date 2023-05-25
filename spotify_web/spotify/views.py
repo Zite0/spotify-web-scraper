@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 
 
 import toCsv
 import artistCreator
 
+@csrf_exempt
 def index(request):
     if request.POST:
         number = request.POST['number'].strip()
@@ -113,6 +115,7 @@ def toList(str):
                 artists.append(str[one:].strip())
                 pos = one
         return artists
+
 
 def error404(request):
     return render(request, '404.html')
